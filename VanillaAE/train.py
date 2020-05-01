@@ -25,7 +25,7 @@ train_ds = tf.data.Dataset.from_tensor_slices(
 train_ds = iter(train_ds)
 
 
-model = VanillaAE()
+ae = VanillaAE()
 
 loss_object = tf.keras.losses.MeanSquaredError()
 optimizer = tf.keras.optimizers.Adam(LR)
@@ -36,10 +36,10 @@ train_loss = tf.keras.metrics.Mean(name='train_loss')
 @tf.function
 def train_step(images):
     with tf.GradientTape() as tape:
-        out = model(images, training=True)
+        out = ae(images, training=True)
         loss = loss_object(out, images)
-    grad = tape.gradient(loss, model.trainable_variables)
-    optimizer.apply_gradients(zip(grad, model.trainable_variables))
+    grad = tape.gradient(loss, ae.trainable_variables)
+    optimizer.apply_gradients(zip(grad, ae.trainable_variables))
     train_loss(loss)
 
 
