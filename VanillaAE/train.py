@@ -24,7 +24,6 @@ train_ds = tf.data.Dataset.from_tensor_slices(
     x_train).shuffle(10000).batch(BATCH_SIZE).repeat()
 train_ds = iter(train_ds)
 
-
 ae = VanillaAE()
 
 loss_object = tf.keras.losses.MeanSquaredError()
