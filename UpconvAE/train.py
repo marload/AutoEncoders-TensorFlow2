@@ -1,5 +1,5 @@
 import tensorflow as tf
-from model import VanillaAE
+from model import UpconvAE
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -29,7 +29,7 @@ train_ds = tf.data.Dataset.from_tensor_slices(
     x_train).shuffle(10000).batch(BATCH_SIZE).repeat()
 train_ds = iter(train_ds)
 
-ae = VanillaAE()
+ae = UpconvAE()
 
 loss_object = tf.keras.losses.MeanSquaredError()
 optimizer = tf.keras.optimizers.Adam(LR)
@@ -37,7 +37,7 @@ optimizer = tf.keras.optimizers.Adam(LR)
 train_loss = tf.keras.metrics.Mean(name='train_loss')
 
 
-@tf.function
+# @tf.function
 def train_step(images):
     with tf.GradientTape() as tape:
         out = ae(images, training=True)

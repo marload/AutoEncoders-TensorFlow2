@@ -9,25 +9,21 @@ class ConvAE(Model):
 
         self.encoder = Sequential([
             layers.Input(input_shape),
-            layers.Conv2D(32, 3, padding='same', activaiton='relu'),
+            layers.Conv2D(32, 3, padding='same', activation='relu'),
             layers.MaxPool2D(2, 2),
-            layers.Conv2D(16, 3, padding='same', activaiton='relu'),
+            layers.Conv2D(16, 3, padding='same', activation='relu'),
             layers.MaxPool2D(2, 2),
-            layers.Conv2D(8, 3, padding='same', activaiton='relu'),
-            layers.MaxPool2D(2, 2),
-            layers.Conv2D(8, 3, padding='same', activaiton='relu'),
+            layers.Conv2D(8, 3, padding='same', activation='relu'),
             layers.MaxPool2D(2, 2),
         ])
         self.decoder = Sequential([
-            layers.Conv2D(8, 3, padding='same', activaiton='relu'),
+            layers.Conv2D(8, 3, padding='same', activation='relu'),
             layers.UpSampling2D(2),
-            layers.Conv2D(8, 3, padding='same', activaiton='relu'),
+            layers.Conv2D(16, 3, padding='same', activation='relu'),
             layers.UpSampling2D(2),
-            layers.Conv2D(16, 3, padding='same', activaiton='relu'),
+            layers.Conv2D(32, 3, padding='same', activation='relu'),
             layers.UpSampling2D(2),
-            layers.Conv2D(32, 3, padding='same', activaiton='relu'),
-            layers.UpSampling2D(2),
-            layers.Conv2D(3, 3, padding='same', activaiton='sigmoid'),
+            layers.Conv2D(3, 3, padding='same', activation='sigmoid'),
             layers.Reshape(input_shape)
         ])
 

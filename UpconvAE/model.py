@@ -9,20 +9,20 @@ class UpconvAE(Model):
 
         self.encoder = Sequential([
             layers.Input(input_shape),
-            layers.Conv2D(32, 3, padding='same', activaiton='relu'),
-            layers.MaxPool2D(2, 2),
-            layers.Conv2D(16, 3, padding='same', activaiton='relu'),
-            layers.MaxPool2D(2, 2),
-            layers.Conv2D(8, 3, padding='same', activaiton='relu'),
-            layers.MaxPool2D(2, 2),
-            layers.Conv2D(8, 3, padding='same', activaiton='relu'),
-            layers.MaxPool2D(2, 2),
+            layers.ZeroPadding2D(1),
+            layers.Conv2D(12, 4, 2, activation='relu'),
+            layers.ZeroPadding2D(1),
+            layers.Conv2D(24, 4, 2, activation='relu'),
+            layers.ZeroPadding2D(1),
+            layers.Conv2D(48, 4, 2, activation='relu'),
         ])
         self.decoder = Sequential([
-            layers.Conv2DTranspose(8, 3, activation='relu'),
-            layers.Conv2DTranspose(16, 3, activation='relu'),
-            layers.Conv2DTranspose(32, 3, activation='relu'),
-            layers.Conv2DTranspose(3, 3, activation='sigmoid'),
+            layers.Conv2DTranspose(
+                24, 4, 2, padding='same', activation='relu'),
+            layers.Conv2DTranspose(
+                12, 4, 2, padding='same', activation='relu'),
+            layers.Conv2DTranspose(
+                3, 4, 2, padding='same', activation='sigmoid'),
             layers.Reshape(input_shape)
         ])
 
